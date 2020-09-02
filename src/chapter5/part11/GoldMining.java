@@ -41,8 +41,11 @@ public class GoldMining {
         for (int i = 1; i <= g.length; i++) {
             for (int j = 1; j <= w; j++) {
                 if (j < p[i - 1]) {
+                    // 如果人数不够当前的矿，则用这么多人少挖一个矿
                     resultTable[i][j] = resultTable[i - 1][j];
                 } else {
+                    // 如果人数够当前的矿，则计算这么多人少挖一个多、还是挖了这个，人数少了响应的多
+                    // j - p[i - 1]是剩余的人数、g[i - 1]是做这件事的价值
                     resultTable[i][j] = Math.max(resultTable[i - 1][j], resultTable[i - 1][j - p[i - 1]] + g[i - 1]);
                 }
             }
