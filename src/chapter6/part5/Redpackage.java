@@ -24,7 +24,7 @@ public class Redpackage {
         Random random = new Random();
         for(int i=0; i<totalPeopleNum-1; i++){
             //随机范围：[1，剩余人均金额的两倍)，左闭右开
-            // 主要这样的数学期望是一半，还是相对比较均匀的
+            // 主要这样的数学期望是一半，还是相对比较均匀的，-1是为了保证至少有1分钱、那random能少取1分上限，随后+1至少分得1分钱
             int amount = random.nextInt(restAmount / restPeopleNum * 2 - 1) + 1;
             restAmount -= amount;
             restPeopleNum --;
