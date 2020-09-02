@@ -10,6 +10,10 @@ public class Redpackage {
 
     /**
      * 拆分红包
+     * 
+     * 1000/10*2 = 200
+     * 200-1 = 199
+     * 
      * @param totalAmount  总金额（以分为单位）
      * @param totalPeopleNum  总人数
      */
@@ -20,6 +24,7 @@ public class Redpackage {
         Random random = new Random();
         for(int i=0; i<totalPeopleNum-1; i++){
             //随机范围：[1，剩余人均金额的两倍)，左闭右开
+            // 主要这样的数学期望是一半，还是相对比较均匀的
             int amount = random.nextInt(restAmount / restPeopleNum * 2 - 1) + 1;
             restAmount -= amount;
             restPeopleNum --;
@@ -30,7 +35,8 @@ public class Redpackage {
     }
 
     /**
-     * 拆分红包V2
+     * 拆分红包V2，切线段方法
+     * 
      * @param totalAmount  总金额（以分为单位）
      * @param totalPeopleNum  总人数
      */
@@ -64,6 +70,7 @@ public class Redpackage {
     }
 
     public static void main(String[] args){
+        // 10块钱的红包10个人抢，按分来计算
         List<Integer> amountList = divideRedPackage(1000, 10);
         for(Integer amount : amountList){
             System.out.println("抢到金额：" + new BigDecimal(amount).divide(new BigDecimal(100)));
