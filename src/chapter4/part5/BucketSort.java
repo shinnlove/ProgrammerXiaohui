@@ -34,6 +34,8 @@ public class BucketSort {
 
         //3.遍历原始数组，将每个元素放入桶中
         for(int i = 0; i < array.length; i++){
+            // 桶排序的核心就是确定桶的编号数量，每个桶的span = (max-min)/(num -1)
+            // 所以value落在第几个桶就是：(int) ((value-min)/span) => (int) ((value-min) / (max-min) * (num - 1))
             int num = (int)((array[i] - min)  * (bucketNum-1) / d);
             bucketList.get(num).add(array[i]);
         }
