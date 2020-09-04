@@ -63,13 +63,54 @@ public class CountSort {
         return sortedArray;
     }
 
+    public static int[] countSortV3(int[] array) {
+        int len = array.length;
+        int min, max;
+        min = max = array[0];
+        for (int i = 1; i < len; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+        int span = max - min + 1;
+
+        int[] statistics = new int[span];
+        for (int i = 0; i < len; i++) {
+            statistics[array[i] - min]++;
+        }
+
+        int[] sorted = new int[len];
+        int count = 0;
+
+        for (int i = 0; i < statistics.length; i++) {
+            for (int j = 0; j < statistics[i]; j++) {
+                sorted[count++] = i + min;
+            }
+        }
+
+        return sorted;
+    }
+
     public static void main(String[] args) {
         int[] array = new int[] {4,4,6,5,3,2,8,1,7,5,6,0,10};
         int[] sortedArray = countSort(array);
+        int[] sortedArray1 = countSortV3(array);
         System.out.println(Arrays.toString(sortedArray));
+        System.out.println(Arrays.toString(sortedArray1));
 
-        array = new int[] {95,94,91,98,99,90,99,93,91,92};
-        sortedArray = countSort(array);
-        System.out.println(Arrays.toString(sortedArray));
+        int[] array2 = new int[] { 95, 94, 91, 98, 99, 90, 99, 93, 91, 92 };
+        int[] sortedArray3 = countSort(array2);
+        int[] sortedArray4 = countSortV3(array2);
+        System.out.println(Arrays.toString(sortedArray3));
+        System.out.println(Arrays.toString(sortedArray4));
+
+        int[] array3 = new int[] { 95, 94, 91, 98, 99, 90, 99, 93, 91, 92 };
+        int[] sortedArray5 = countSort(array3);
+        int[] sortedArray6 = countSortV3(array3);
+        System.out.println(Arrays.toString(sortedArray5));
+        System.out.println(Arrays.toString(sortedArray6));
     }
 }
