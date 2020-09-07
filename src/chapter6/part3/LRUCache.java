@@ -5,11 +5,13 @@ import java.util.HashMap;
 
 public class LRUCache {
 
+    // 两个指针来确认链表头部和尾部位置
     private Node head;
     private Node end;
     //缓存存储上限
     private int limit;
 
+    // 使用hashMap来做O(1)时间复杂度的访问
     private HashMap<String, Node> hashMap;
 
     public LRUCache(int limit) {
@@ -22,6 +24,7 @@ public class LRUCache {
         if (node == null){
             return null;
         }
+        // 一旦refresh一个node，这个node就是移到尾部
         refreshNode(node);
         return node.value;
     }
@@ -55,6 +58,13 @@ public class LRUCache {
 
     /**
      * 刷新被访问的节点位置
+     * 
+     * 如果当前要刷新的节点为A，
+     * 如果是尾结点，则不需要动；
+     * 如果是头结点，next给到头结点，变成尾结点；
+     * 如果是中间节点，则把A的next给到A.before.next、把A.before给到A.next.before，让他们接起来；（这一步就是移除节点、操作头尾节点时处理下指针）
+     * 然后在尾部插入节点，就是把A给到end.next、end给到A.before、A的next置为null、最后把A给到end；（特别注意考虑头尾节点空不空情况）
+     * 
      * @param  node 被访问的节点
      */
     private void refreshNode(Node node) {
