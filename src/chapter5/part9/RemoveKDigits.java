@@ -53,10 +53,12 @@ public class RemoveKDigits {
         //创建一个栈，用于接收所有的数字
         char[] stack = new char[num.length()];
         int top = 0;
+        // 外层只遍历一遍
         for (int i = 0; i < num.length(); ++i) {
             //遍历当前数字
             char c = num.charAt(i);
             //当栈顶数字大于遍历到的当前数字，栈顶数字出栈（相当于删除数字）
+            // 判断栈不空、且还没满足要删除数字个数、且栈顶元素大于当前元素、栈顶元素出栈
             while (top > 0 && stack[top-1] > c && k > 0) {
                 top -= 1;
                 k -= 1;
